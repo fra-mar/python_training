@@ -1,0 +1,6 @@
+Line to be ignored. How to load a text in numpy with no clear delimiters
+Second
+Third line to be ignored
+01 0046 703960491
+02  +460705146416
+And you want output like index, prefix, mobilnumber.By the way this is a footer
