@@ -14,7 +14,7 @@ import pandas as pd
 
 
 # read a dataframe from a previous exercise (GDP vs hospital beds vs doctors / 100 000 inhab)
-df_gdp=pd.read_csv(r'C:\Users\marti\Dropbox\Openstax Coursera Python\Python\my_programs\Data_Eurostat\df_gdp_beds_grad.csv',header=0)
+df_gdp=pd.read_csv(r'df_gdp_beds_grad.csv',header=0)
 df_gdp.drop(columns='Unnamed: 0',inplace=True)
 df_gdp.drop(index=[0,1,2],axis=0,inplace=True)
 df_gdp.reset_index(inplace=True,drop=True)
@@ -29,7 +29,7 @@ df_sorted=df_gdp.sort_values('GDP_capita',ascending=False)     #Descending sorte
 
 #read a file with EU GDP through years
 
-df_gdp_evol=pd.read_excel(r'C:\Users\marti\Dropbox\Openstax Coursera Python\Python\my_programs\Data_Eurostat\Eurostat_GDP.xls',
+df_gdp_evol=pd.read_excel(r'Eurostat_GDP.xls',
                          header=2,skipfooter=8, usecols=(0,1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39),na_values=":")
 
 df_gdp_evol.dropna(inplace=True,axis=0)#               Cleaning the data
