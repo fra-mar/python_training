@@ -7,6 +7,8 @@
 
 import numpy as np
 
+from matplotlib import pyplot as plt
+
 np.set_printoptions(precision=3) #Will write floats with just 3 decimals
 
 
@@ -26,7 +28,7 @@ print ('ones  ', ones.ndim, ones.shape) #ndim=number of dimensions
 
 manypoints=np.linspace(0,10,50)  #From 0 to 10, 50points
 print (' Manypoints : ',manypoints.ndim, manypoints.shape)
-xs = np.logspace(0,1, 20)  #linspace vs logspace
+xs = np.logspace(0,1, 50)  #linspace vs logspace
 print (' Many points log scale: ',xs)
 
 c=(3,8)  # c is a tuple
@@ -52,6 +54,7 @@ print (reshape)
 f=lambda a,b: a**2+2*b+3
 my_array=np.fromfunction(f,(4,3))  #creates an 4x3 array. Indexes comes in the function
 print (my_array)
+
 
 
 # In[46]:
@@ -81,10 +84,26 @@ arr_zero[0,:], arr_zero[1,:]=arr_a, arr_b
 print (arr_zero)
 
 
-# In[48]:
 
+#%% Insert, delete, append, data. Concatenate and stack 
 
-#another way to concatenate/stack  arrays...
+deleted = np.delete (my_array, 0, axis=0)
+
+print ('first row deleted\n', deleted)
+
+deleted_many = np.delete (my_array, [0,3], axis = 0) #you can´t use negative indexes
+
+print ('first and last deleted\n', deleted_many)
+
+inserted = np.insert (my_array, 1, [3,3,3], axis =0)  #inserts a row with 3s in second position
+
+print ('inserts a row with 3s in second position\n', inserted)
+
+appended = np.append ( my_array,[ [3,3,3] ], axis=0) #notice double brakes so row has 2 dimensions
+
+print ('append row of 3\n', appended)
+
+# concatenate/stack  arrays...   Concatenate better than stack if an array is repeatedly being stacked
 
 arr_concat=np.concatenate((arr_a,arr_b))
 print ('simple concatenation, if no axis is referred, flat concat is done...',arr_concat)
@@ -123,7 +142,13 @@ print ('Mean axis 1...', np.mean(arr_zero, axis=1))
 
 
 #Boolean...
-print (a==a2) #compares two arrays I created before, where a2 is a squared
+#compares two arrays I created before, where a2 is a squared
+
+m= a == a2   #...and store in a new array
+
+print (m)
+
+print ( a[m] )  # print array a, but just indexes that are True
 
 
 # In[52]:
@@ -156,7 +181,7 @@ print (rnd.sort(axis=0))
 # In[54]:
 
 
-from matplotlib import pyplot as plt
+
 get_ipython().run_line_magic('matplotlib', 'inline')
 #allow visualization IN the notebook
 plt.plot(3*a2)
@@ -237,7 +262,9 @@ print (np.isnan(g),np.isinf(g))
 
 
 #load from a file...that I created from eurostat...quite a mess with the format...
-beds=np.genfromtxt(r'C:\Users\marti\Dropbox\Openstax Coursera Python\Python\my_programs\Training with\hospital_beds.csv'                   ,delimiter=';',names=True,dtype=None,encoding='L1')  #names for headers, dtype:if don´t write you get nan.
+beds=np.genfromtxt(r'hospital_beds.csv' ,
+                   delimiter=';',names=True,dtype=None,encoding='L1')  
+                    #names for headers, dtype:if don´t write you get nan.
 print (beds)  #should return an array with EU countries and number of beds / 100000habs.
 #print (np.shape(beds))  #should be a two dimension 18,18 but is a one dimension 36. You could have written np.ndim(beds)
 
